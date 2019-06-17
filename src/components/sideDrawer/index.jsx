@@ -1,5 +1,4 @@
 import React from "react";
-import "antd/dist/antd.css";
 import { Layout, Menu, Icon } from "antd";
 import ChildDrawer from "./childDrawer";
 const { Sider } = Layout;
@@ -34,7 +33,7 @@ const renderMenuItems = onClickMenuItem => {
 
 const SideDrawer = ({
   collapsed,
-  toggleDrawer,
+  toggleSideDrawer,
   toggleChildDrawer,
   childDrawerVisibility,
   onClickMenuItem
@@ -46,7 +45,7 @@ const SideDrawer = ({
       breakpoint="lg"
       collapsed={collapsed}
       onBreakpoint={onSmallScreen => {
-        toggleDrawer();
+        toggleSideDrawer()
       }}
     >
       <div className="logo" />

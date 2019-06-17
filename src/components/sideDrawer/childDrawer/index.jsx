@@ -1,5 +1,4 @@
 import React from "react";
-import "antd/dist/antd.css";
 import { Drawer } from "antd";
 
 const ChildDrawer = ({ title, children, onClose, childDrawerVisibility }) => {

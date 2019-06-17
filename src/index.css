@@ -12,7 +12,6 @@ code {
     monospace;
 }
 
-
 .trigger {
   font-size: 18px;
   line-height: 64px;
@@ -29,4 +28,15 @@ code {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
+}
+
+.fullWidth {
+  width: 100%
+}
+
+
+/* Shadows */
+
+.boxShadow {
+   box-shadow: '2px 2px 5px rgba(0,0,0, .25)';
 }

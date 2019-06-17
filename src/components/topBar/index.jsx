@@ -1,31 +1,40 @@
 import React from "react";
-import "antd/dist/antd.css";
 import { Layout, Icon, Button } from "antd";
 import { withRouter } from "react-router-dom";
 import fakeAuth from "../../auth/auth-utils";
 
 const { Header } = Layout;
 
-const TopBar = ({ collapsed, toggleSideDrawer, history }) => {
+const TopBar = ({ sideDrawerCollapsed, toggleSideDrawer, meetingPanelCollapsed, toggleMeetingPanel, history }) => {
   return (
-    <Header style={{ background: "#fff", padding: 0 }}>
+    <Header style={{
+      background: "#fff", padding: 0,
+      boxShadow: '2px 2px 5px rgba(0,0,0, .05)',
+      width: '100%',
+      zIndex: 9999,
+    }}>
       <Icon
         className="trigger"
-        type={collapsed ? "menu-unfold" : "menu-fold"}
+        type={sideDrawerCollapsed ? "menu-unfold" : "menu-fold"}
         onClick={toggleSideDrawer}
       />
-
-      <Button
-        type="link"
-        icon="logout"
-        onClick={() => {
-          fakeAuth.logout().then(history.push("/login"));
-        }}
-        style={{ float: "right", lineHeight: "60px" }}
-      >
-        Logout
+      <span style={{ float: "right", lineHeight: "60px" }}>
+        <Button
+          type="link"
+          icon="logout"
+          onClick={() => {
+            fakeAuth.logout().then(history.push("/login"));
+          }}
+        >
+          Logout
       </Button>
-    </Header>
+        <Icon
+          className="trigger"
+          type={meetingPanelCollapsed ? "menu-fold" : "menu-unfold"}
+          onClick={toggleMeetingPanel}
+        />
+      </span>
+    </Header >
   );
 };
 

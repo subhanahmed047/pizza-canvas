@@ -1,27 +1,37 @@
 import React from "react";
-import { Layout } from "antd";
 import SideDrawer from "../sideDrawer/";
 import TopBar from "../topBar/";
-import AppContent from "../appContent";
+import Canvas from "../canvas";
+import MeetingPanel from "../meetingPanel";
+import { Layout } from "antd";
+import OnlineUsers from "../meetingPanel/onlineUsers";
+const { Content } = Layout;
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: false,
+      sideDrawerCollapsed: false,
+      meetingPanelCollapsed: false,
       childDrawerVisiblilty: false
     };
   }
 
-  toggle = () => {
+  toggleSideDrawer = () => {
     this.setState({
-      collapsed: !this.state.collapsed
+      sideDrawerCollapsed: !this.state.sideDrawerCollapsed
     });
   };
 
   toggleChildDrawer = () => {
     this.setState({
       childDrawerVisiblilty: !this.state.childDrawerVisiblilty
+    });
+  };
+
+  toggleMeetingPanel = () => {
+    this.setState({
+      meetingPanelCollapsed: !this.state.meetingPanelCollapsed
     });
   };
 
@@ -33,22 +43,31 @@ class Home extends React.Component {
     return (
       <Layout
         style={{
-          height: "100vh"
+          minHeight: "100vh"
         }}
       >
         <SideDrawer
-          collapsed={this.state.collapsed}
+          collapsed={this.state.sideDrawerCollapsed}
           childDrawerVisibility={this.state.childDrawerVisiblilty}
-          toggleDrawer={this.toggle}
+          toggleSideDrawer={this.toggleSideDrawer}
           toggleChildDrawer={this.toggleChildDrawer}
           onClickMenuItem={this.onClickMenuItem}
         />
         <Layout>
           <TopBar
-            collapsed={this.state.collapsed}
-            toggleSideDrawer={this.toggle}
+            sideDrawerCollapsed={this.state.sideDrawerCollapsed}
+            toggleSideDrawer={this.toggleSideDrawer}
+            meetingPanelCollapsed={this.state.meetingPanelCollapsed}
+            toggleMeetingPanel={this.toggleMeetingPanel}
           />
-          <AppContent />
+          <Content>
+            <Canvas />
+          </Content>
+          <MeetingPanel
+            collapsed={this.state.meetingPanelCollapsed}
+            onlineUsers={<OnlineUsers />}
+            toggleMeetingPanel={this.toggleMeetingPanel}
+          />
         </Layout>
       </Layout>
     );

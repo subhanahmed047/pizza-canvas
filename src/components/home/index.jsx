@@ -1,10 +1,9 @@
+import { Layout } from "antd";
 import React from "react";
+import Canvas from "../canvas";
+import RightDrawer from "../rightDrawer";
 import SideDrawer from "../sideDrawer/";
 import TopBar from "../topBar/";
-import Canvas from "../canvas";
-import MeetingPanel from "../meetingPanel";
-import { Layout } from "antd";
-import OnlineUsers from "../meetingPanel/onlineUsers";
 const { Content } = Layout;
 
 class Home extends React.Component {
@@ -12,7 +11,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       sideDrawerCollapsed: false,
-      meetingPanelCollapsed: false,
+      rightDrawerCollapased: false,
       childDrawerVisiblilty: false
     };
   }
@@ -29,9 +28,9 @@ class Home extends React.Component {
     });
   };
 
-  toggleMeetingPanel = () => {
+  toggleRightDrawer = () => {
     this.setState({
-      meetingPanelCollapsed: !this.state.meetingPanelCollapsed
+      rightDrawerCollapased: !this.state.rightDrawerCollapased
     });
   };
 
@@ -57,16 +56,15 @@ class Home extends React.Component {
           <TopBar
             sideDrawerCollapsed={this.state.sideDrawerCollapsed}
             toggleSideDrawer={this.toggleSideDrawer}
-            meetingPanelCollapsed={this.state.meetingPanelCollapsed}
+            rightDrawerCollapased={this.state.rightDrawerCollapased}
             toggleMeetingPanel={this.toggleMeetingPanel}
           />
           <Content>
             <Canvas />
           </Content>
-          <MeetingPanel
-            collapsed={this.state.meetingPanelCollapsed}
-            onlineUsers={<OnlineUsers />}
-            toggleMeetingPanel={this.toggleMeetingPanel}
+          <RightDrawer
+            collapsed={this.state.rightDrawerCollapased}
+            toggleRightDrawer={this.toggleRightDrawer}
           />
         </Layout>
       </Layout>

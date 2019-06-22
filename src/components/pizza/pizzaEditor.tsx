@@ -1,6 +1,6 @@
 import * as React from 'react';
 import StepsForm from '../../layout/stepsForm';
-import SizeForm from '../../layout/sizeForm';
+import SizeSelect from './sizeSelect';
 import PizzaSizes from '../../models/pizza-sizes';
 import { Button, Row, Col, Layout } from 'antd';
 import PreviewCanvas from '../../components/preview/previewCanvas';
@@ -27,7 +27,7 @@ class PizzaEditor extends React.Component<PizzaEditorProps> {
                 </Row>
                 <Row type="flex" justify="center" align="top" style={{ minHeight: '600px' }}>
                     <Col span={10} style={{ border: '2px solid black' }}>
-                        <SizeForm
+                        <SizeSelect
                             sizes={PizzaSizes}
                             selectedSize={this.state.selectedSize}
                             onSizeSelected={this.onSizeSelected}

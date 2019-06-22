@@ -1,9 +1,8 @@
 import React from 'react';
-import { Layout, Tabs } from "antd";
-const { TabPane } = Tabs;
+import { Layout } from "antd";
 const { Sider } = Layout;
 
-const MeetingPanel = ({ onlineUsers, zoom, collapsed, toggleMeetingPanel }) => {
+const RightDrawer = ({ collapsed, toggleRightDrawer }) => {
     return (
         <Sider
             trigger={null}
@@ -20,15 +19,12 @@ const MeetingPanel = ({ onlineUsers, zoom, collapsed, toggleMeetingPanel }) => {
                 right: 0,
             }}
             onBreakpoint={onSmallScreen => {
-                toggleMeetingPanel()
+                toggleRightDrawer()
             }}
         >
-            <Tabs defaultActiveKey="1">
-                <TabPane tab="Online Users" key="1">{onlineUsers}</TabPane>
-                <TabPane tab="Zoom" key="2">{zoom}</TabPane>
-            </Tabs>,
+
         </Sider >
     );
 }
 
-export default MeetingPanel;
+export default RightDrawer;

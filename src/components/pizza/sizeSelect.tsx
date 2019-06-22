@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 
-export interface SizeFormProps {
+export interface SizeSelectProps {
     sizes: any,
     selectedSize: string,
     onSizeSelected: (event: RadioChangeEvent) => void,
 }
 
-const SizeForm: React.SFC<SizeFormProps> = ({ sizes, selectedSize, onSizeSelected }) => {
+const SizeSelect: React.SFC<SizeSelectProps> = ({ sizes, selectedSize, onSizeSelected }) => {
     return (
         <Radio.Group
             defaultValue={selectedSize}
@@ -23,4 +23,4 @@ const SizeForm: React.SFC<SizeFormProps> = ({ sizes, selectedSize, onSizeSelecte
     );
 }
 
-export default SizeForm;
+export default SizeSelect;

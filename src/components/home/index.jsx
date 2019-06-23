@@ -67,11 +67,14 @@ class Home extends React.Component {
                   <StepsForm selectedStep={0} />
                 </Col>
               </Row>
-              <Row type="flex" justify="center" style={{ paddingTop: '40px', flexWrap: 'wrap' }}>
-                <Col span={10} style={{ padding: '10px', border: '1px solid grey' }}>
+              <Row type="flex" style={{ paddingTop: '40px', flexWrap: 'wrap' }}>
+                <Col span={10} style={{ padding: '10px' }}>
                   <PizzaEditor />
                 </Col>
-                <Col span={10}>
+                <Col span={14} style={{
+                  padding: '2vh', boxShadow: '-3px 2px 13px -5px rgba(0,0,0,0.27)'
+                }}>
+                  <h3>Preview: </h3>
                   <PizzaPreview />
                 </Col>
               </Row>

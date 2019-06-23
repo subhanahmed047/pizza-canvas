@@ -3,6 +3,9 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "../components/home/";
 import { LoginForm, RegisterForm, ResetForm } from "../auth";
 import ProtectedRoute from "./protectedRoute";
+import { Provider } from "mobx-react";
+import PizzaStore from "../stores/pizzaStore";
+import IngredientsStore from "../stores/ingredientsStore";
 
 const appRoutes = [
   {
@@ -31,25 +34,27 @@ const appRoutes = [
 
 const Routes = () => {
   return (
-    <Router>
-      {appRoutes.map(route =>
-        route.protected ? (
-          <ProtectedRoute
-            key={route.path}
-            path={route.path}
-            component={route.component}
-            exact={route.exact}
-          />
-        ) : (
-            <Route
+    <Provider pizzaStore={PizzaStore} ingredientsStore={IngredientsStore}>
+      <Router>
+        {appRoutes.map(route =>
+          route.protected ? (
+            <ProtectedRoute
               key={route.path}
               path={route.path}
               component={route.component}
               exact={route.exact}
             />
-          )
-      )}
-    </Router>
+          ) : (
+              <Route
+                key={route.path}
+                path={route.path}
+                component={route.component}
+                exact={route.exact}
+              />
+            )
+        )}
+      </Router>
+    </Provider >
   );
 };
 

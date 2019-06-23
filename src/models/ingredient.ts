@@ -1,4 +1,5 @@
 export default interface Ingredient {
     id: string,
-    title: string
+    title: string,
+    key: string,
 }

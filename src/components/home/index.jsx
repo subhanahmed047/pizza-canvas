@@ -1,9 +1,10 @@
-import { Layout } from "antd";
+import { Layout, Col, Row } from "antd";
 import React from "react";
-import Canvas from "../canvas";
-import RightDrawer from "../rightDrawer";
 import SideDrawer from "../sideDrawer/";
 import TopBar from "../topBar/";
+import PizzaEditor from "../pizza/editor/pizzaEditor";
+import PizzaPreview from "../pizza/preview/pizzaPreview.jsx";
+import StepsForm from "../../layout/stepsForm";
 const { Content } = Layout;
 
 class Home extends React.Component {
@@ -60,14 +61,24 @@ class Home extends React.Component {
             toggleMeetingPanel={this.toggleMeetingPanel}
           />
           <Content>
-            <Canvas />
+            <Layout style={{ margin: '40px', padding: '20px', background: '#fff' }}>
+              <Row type="flex" justify="center">
+                <Col span={12}>
+                  <StepsForm selectedStep={0} />
+                </Col>
+              </Row>
+              <Row type="flex" justify="center" style={{ paddingTop: '40px', flexWrap: 'wrap' }}>
+                <Col span={10} style={{ padding: '10px', border: '1px solid grey' }}>
+                  <PizzaEditor />
+                </Col>
+                <Col span={10}>
+                  <PizzaPreview />
+                </Col>
+              </Row>
+            </Layout>
           </Content>
-          <RightDrawer
-            collapsed={this.state.rightDrawerCollapased}
-            toggleRightDrawer={this.toggleRightDrawer}
-          />
         </Layout>
-      </Layout>
+      </Layout >
     );
   }
 }

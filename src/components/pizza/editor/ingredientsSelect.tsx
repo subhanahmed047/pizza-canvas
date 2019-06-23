@@ -37,7 +37,7 @@ class IngredientsSelect extends React.Component<IngredientsSelectProps> {
             <div>
                 <Transfer
                     dataSource={allIngredients as any}
-                    titles={['Available Ingredients', 'Your Pizza']}
+                    titles={['Available', 'On Pizza']}
                     targetKeys={this.state.targetKeys}
                     onChange={this.handleChange}
                     render={item => item.title}

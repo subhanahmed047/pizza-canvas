@@ -3,10 +3,12 @@ import { toJS } from 'mobx';
 import { Button, Form } from "antd";
 import PizzaSizes from '../../../models/pizza-sizes';
 import SizeSelect from './sizeSelect';
+import SlicesSelect from './slicesSelect';
 import { inject, observer } from "mobx-react";
 import TypeSelect from "./typeSelect";
 import IngredientsSelect from "./ingredientsSelect";
 import PizzaType from "../../../models/pizza-type";
+import { Container, Row } from '../../../layout/ui-elements';
 
 interface PizzaEditorProps {
     form: any,
@@ -14,24 +16,51 @@ interface PizzaEditorProps {
     ingredientsStore: any,
 }
 
+interface PizzaEditorState {
+    pizza: {
+        selectedPizzaType: PizzaType,
+        selectedPizzaSize: string,
+        noOfSlices: number,
+    }
+}
+
+
 @inject("pizzaStore", "ingredientsStore")
 @observer
-class PizzaEditorForm extends React.Component<PizzaEditorProps> {
-    state = {
-        selectedSize: PizzaSizes.small,
-        selectedPizza: this.props.pizzaStore.pizzas[0],
+class PizzaEditor extends React.Component<PizzaEditorProps, PizzaEditorState> {
+    constructor(props: PizzaEditorProps) {
+        super(props);
+        this.state = {
+            pizza: {
+                selectedPizzaType: this.props.pizzaStore.pizzas[0],
+                selectedPizzaSize: PizzaSizes.small,
+                noOfSlices: 6,
+            }
+        }
     }
 
     onSizeSelected = (e: any) => {
         console.log(e.target.value);
     }
 
+    onSlicesSelected = (e: any) => {
+        this.setState(prevState => ({
+            pizza: {
+                ...prevState.pizza,
+                noOfSlices: e.target.value
+            }
+        }))
+    }
+
     onTypeSelected = (selectedPizzaID: string) => {
-        const selectedPizza = this.props.pizzaStore.pizzas.filter((pizza: PizzaType) => pizza.id === selectedPizzaID)[0];
+        const selectedPizza: PizzaType = this.props.pizzaStore.pizzas.filter((pizza: PizzaType) => pizza.id === selectedPizzaID)[0];
         console.log("Pizza Selected: ", toJS(selectedPizza));
-        this.setState({
-            selectedPizza: selectedPizza
-        });
+        this.setState(prevState => ({
+            pizza: {
+                ...prevState.pizza,
+                selectedPizzaType: selectedPizza
+            }
+        }))
     }
 
     handleSubmit = (e: React.FormEvent) => {
@@ -44,40 +73,33 @@ class PizzaEditorForm extends React.Component<PizzaEditorProps> {
     };
 
     render() {
-        const { getFieldDecorator } = this.props.form;
         const { pizzaStore, ingredientsStore } = this.props;
-
-        { console.log(pizzaStore.pizzas) }
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Item>
+            <Container direction="column" justify="center" wrap="no-wrap" >
+                <Row>
                     <SizeSelect
                         sizes={PizzaSizes}
-                        selectedSize={this.state.selectedSize}
+                        selectedSize={this.state.pizza.selectedPizzaSize}
                         onSizeSelected={this.onSizeSelected}
                     />
-                </Form.Item>
-                <Form.Item>
-                    {getFieldDecorator("type", {
-                        rules: [{ required: true, message: "Please select your Pizza Type" }]
-                    })(
-                        <TypeSelect
-                            pizzas={pizzaStore.pizzas}
-                            selectedType={pizzaStore.pizzas[0]}
-                            onTypeSelected={this.onTypeSelected}
-                        />
-                    )}
-
-                </Form.Item>
-                <Form.Item>
-                    {getFieldDecorator("ingredients", {
-                        rules: [{ required: true, message: "Please select your Ingredients" }]
-                    })(
-                        <IngredientsSelect pizzaIngredients={this.state.selectedPizza.ingredients} allIngredients={ingredientsStore.ingredients} />
-                    )}
-
-                </Form.Item>
-                <Form.Item>
+                </Row>
+                <Row>
+                    <SlicesSelect
+                        selectedSlices={this.state.pizza.noOfSlices}
+                        onSlicesSelected={this.onSlicesSelected}
+                    />
+                </Row>
+                <Row>
+                    <TypeSelect
+                        pizzas={pizzaStore.pizzas}
+                        selectedType={pizzaStore.pizzas[0]}
+                        onTypeSelected={this.onTypeSelected}
+                    />
+                </Row>
+                <Row>
+                    <IngredientsSelect pizzaIngredients={this.state.pizza.selectedPizzaType.ingredients} allIngredients={ingredientsStore.ingredients} />
+                </Row>
+                <Row>
                     <Button
                         type="primary"
                         htmlType="submit"
@@ -86,12 +108,10 @@ class PizzaEditorForm extends React.Component<PizzaEditorProps> {
                     >
                         Continue
               </Button>
-                </Form.Item>
-            </Form>
+                </Row>
+            </Container>
         );
     }
 }
 
-
-const PizzaEditor = Form.create({ name: "pizza_Form" })(PizzaEditorForm);
 export default PizzaEditor;

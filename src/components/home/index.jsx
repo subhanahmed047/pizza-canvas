@@ -62,16 +62,16 @@ class Home extends React.Component {
           />
           <Content>
             <Layout style={{ margin: '40px', padding: '20px', background: '#fff' }}>
-              <Row type="flex" justify="center">
+              <Row type="flex" justify="center" style={{ paddingBottom: '2%' }}>
                 <Col span={12}>
                   <StepsForm selectedStep={0} />
                 </Col>
               </Row>
-              <Row type="flex" style={{ paddingTop: '40px', flexWrap: 'wrap' }}>
-                <Col span={8} style={{ padding: '10px' }}>
+              <Row type="flex" justify="space-around" style={{ flexWrap: 'wrap' }}>
+                <Col style={{ padding: '10px' }}>
                   <PizzaEditor />
                 </Col>
-                <Col span={16} style={{
+                <Col span={14} style={{
                   padding: '2vh', boxShadow: '-3px 2px 13px -5px rgba(0,0,0,0.27)'
                 }}>
                   <h3>Preview: </h3>

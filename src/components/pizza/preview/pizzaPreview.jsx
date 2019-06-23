@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Layer, Stage, Shape } from 'react-konva';
 import PizzaBase from './PizzaBase';
 import PizzaSauce from './PizzaSauce';
+import Pepperoni from './ingredients/pepperoni';
 import PizzaSlices from './PizzaSlices.jsx';
 
 class PizzaPreview extends React.Component {
@@ -40,18 +41,40 @@ class PizzaPreview extends React.Component {
         const width = this.container.offsetWidth;
         const height = this.container.offsetHeight;
 
-        this.setState({
+        // if width becomes less than height, then make pizza fit to with otherwise fit to height
+        let radius = height / 2;
+        if ((width / 2) < (radius)) {
+            radius = width / 2;
+        }
+
+        this.setState(prevState => ({
             stageWidth: width,
             stageHeight: height,
             pizza: {
+                ...prevState.pizza,
                 x: width / 2,
                 y: height / 2,
-                radius: (width / 2) - 5,
+                radius: radius,
             }
-        });
+        }))
     };
 
+    spreadPepperoni = (pizza, distanceFromEdges, piecesPerSpread) => {
+        return Array.from(Array(pizza.slices * 2), (e, i) => {
+            const ang = i * ((Math.PI * 2) / piecesPerSpread);
+            const x =
+                Math.cos(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
+                pizza.x;
+            const y =
+                Math.sin(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
+                pizza.y;
+            return <Pepperoni key={i} x={x} y={y} radius={(10 / 100) * pizza.radius} />;
+        })
+    }
+
     render() {
+        const { stageWidth, stageHeight, pizza } = this.state;
+        console.log(pizza);
         return (
             <div
                 style={{
@@ -61,31 +84,13 @@ class PizzaPreview extends React.Component {
                 ref={node => {
                     this.container = node;
                 }}>
-                <Stage width={this.state.stageWidth} height={this.state.stageHeight}>
+                <Stage width={stageWidth} height={stageHeight}>
                     <Layer>
-                        <PizzaBase pizza={this.state.pizza} />
-                        <PizzaSauce pizza={this.state.pizza} />
-                        <Shape
-                            sceneFunc={(context, shape) => {
-                                Array.from(Array(this.state.pizza.slices), (e, i) => {
-                                    context.beginPath();
-                                    context.moveTo(this.state.pizza.x, this.state.pizza.y);
-                                    context.arc(
-                                        this.state.pizza.x,
-                                        this.state.pizza.y,
-                                        this.state.pizza.radius,
-                                        i * this.state.pizza.pieAngle,
-                                        (i + 1) * this.state.pizza.pieAngle,
-                                        false
-                                    );
-                                    context.lineWidth = this.state.pizza.sliceWidth;
-                                    context.lineWidth = 5;
-                                    context.strokeStyle = "white";
-                                    context.stroke();
-                                    return context;
-                                });
-                            }}
-                        />
+                        <PizzaBase pizza={pizza} />
+                        <PizzaSauce pizza={pizza} />
+                        {this.spreadPepperoni(pizza, 25, pizza.slices * 2)}
+                        {this.spreadPepperoni(pizza, 55, pizza.slices)}
+                        <PizzaSlices pizza={pizza} />
                     </Layer>
                 </Stage>
             </div>

@@ -68,10 +68,10 @@ class Home extends React.Component {
                 </Col>
               </Row>
               <Row type="flex" style={{ paddingTop: '40px', flexWrap: 'wrap' }}>
-                <Col span={10} style={{ padding: '10px' }}>
+                <Col span={8} style={{ padding: '10px' }}>
                   <PizzaEditor />
                 </Col>
-                <Col span={14} style={{
+                <Col span={16} style={{
                   padding: '2vh', boxShadow: '-3px 2px 13px -5px rgba(0,0,0,0.27)'
                 }}>
                   <h3>Preview: </h3>

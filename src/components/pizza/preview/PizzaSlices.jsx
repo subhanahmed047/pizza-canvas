@@ -16,10 +16,9 @@ const PizzaSlices = ({ pizza, sliceIndex }) => {
                         (i + 1) * pizza.pieAngle,
                         false
                     );
-                    context.fill();
                     context.lineWidth = pizza.sliceWidth;
                     context.lineWidth = 5;
-                    context.strokeStyle = "black";
+                    context.strokeStyle = "white";
                     context.stroke();
                     return context;
                 });

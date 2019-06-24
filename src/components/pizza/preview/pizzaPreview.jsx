@@ -56,7 +56,7 @@ class PizzaPreview extends React.Component {
 
     render() {
         const { stageWidth, stageHeight, pizza } = this.state;
-        const { selectedPizza } = this.props;
+        // const { selectedPizza } = this.props;
         // const ingredients = selectedPizza.selectedPizzaType.ingredients;
         const ingredients = this.props.allIngredients.filter(ingredient => this.props.targetKeys.some((key) => ingredient.key === key));
         console.log(ingredients);

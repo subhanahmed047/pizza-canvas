@@ -2,6 +2,7 @@
   "name": "react-dashboard",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://subhanahmed047.github.io/pizza-canvas/",
   "dependencies": {
     "@types/jest": "24.0.14",
     "@types/node": "12.0.8",
@@ -25,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f2d3041703a36cd55e9f326d62276e5f",
+    "revision": "7bf81b10bdff97be0577cc6139fbf238",
     "url": "/pizza-canvas/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pizza-canvas/static/css/2.ab7e5612.chunk.css"
   },
   {
-    "revision": "95bbd58b07cb7c2872cb",
+    "revision": "45d04438a3e7a2b590b2",
     "url": "/pizza-canvas/static/css/main.a45524ee.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pizza-canvas/static/js/2.3c926367.chunk.js"
   },
   {
-    "revision": "95bbd58b07cb7c2872cb",
-    "url": "/pizza-canvas/static/js/main.3bfa5b0e.chunk.js"
+    "revision": "45d04438a3e7a2b590b2",
+    "url": "/pizza-canvas/static/js/main.d9cea9a4.chunk.js"
   },
   {
     "revision": "408a9f71b9de1f2c1755",

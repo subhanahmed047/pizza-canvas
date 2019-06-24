@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pizza-canvas/static/css/main.a45524ee.chunk.css",
-    "main.js": "/pizza-canvas/static/js/main.3bfa5b0e.chunk.js",
-    "main.js.map": "/pizza-canvas/static/js/main.3bfa5b0e.chunk.js.map",
+    "main.js": "/pizza-canvas/static/js/main.d9cea9a4.chunk.js",
+    "main.js.map": "/pizza-canvas/static/js/main.d9cea9a4.chunk.js.map",
     "runtime~main.js": "/pizza-canvas/static/js/runtime~main.8a2a5a3b.js",
     "runtime~main.js.map": "/pizza-canvas/static/js/runtime~main.8a2a5a3b.js.map",
     "static/css/2.ab7e5612.chunk.css": "/pizza-canvas/static/css/2.ab7e5612.chunk.css",
     "static/js/2.3c926367.chunk.js": "/pizza-canvas/static/js/2.3c926367.chunk.js",
     "static/js/2.3c926367.chunk.js.map": "/pizza-canvas/static/js/2.3c926367.chunk.js.map",
     "index.html": "/pizza-canvas/index.html",
-    "precache-manifest.d30bb600b7bf9917675f8d2b86c2575c.js": "/pizza-canvas/precache-manifest.d30bb600b7bf9917675f8d2b86c2575c.js",
+    "precache-manifest.928ec5ef336076785c0178d82020933f.js": "/pizza-canvas/precache-manifest.928ec5ef336076785c0178d82020933f.js",
     "service-worker.js": "/pizza-canvas/service-worker.js",
     "static/css/2.ab7e5612.chunk.css.map": "/pizza-canvas/static/css/2.ab7e5612.chunk.css.map",
     "static/css/main.a45524ee.chunk.css.map": "/pizza-canvas/static/css/main.a45524ee.chunk.css.map"

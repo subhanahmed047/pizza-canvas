@@ -6,22 +6,27 @@ class IngredientsStore {
               {
                 key: '0',
                 id: '0',
-                title: 'cheese'
+                title: 'Cheese'
               },
               {
                 key: '1',
                 id: '1',
-                title: 'fetta'
+                title: 'Fetta'
               },
               {
                 key: '2',
                 id: '2',
-                title: 'italian sausages'
+                title: 'Italian Sausages'
               },
               {
                 key: '3',
                 id: '3',
-                title: 'pepperoni'
+                title: 'Pepperoni'
+              },
+              {
+                key: '4',
+                id: '4',
+                title: 'Olives'
               }
   ];
 }

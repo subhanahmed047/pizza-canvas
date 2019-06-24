@@ -1,11 +1,11 @@
+import { Button, Layout } from "antd";
 import React from "react";
-import { Layout, Icon, Button } from "antd";
 import { withRouter } from "react-router-dom";
 import fakeAuth from "../../auth/auth-utils";
 
 const { Header } = Layout;
 
-const TopBar = ({ sideDrawerCollapsed, toggleSideDrawer, meetingPanelCollapsed, toggleMeetingPanel, history }) => {
+const TopBar = ({ history }) => {
   return (
     <Header style={{
       background: "#fff", padding: 0,
@@ -13,11 +13,6 @@ const TopBar = ({ sideDrawerCollapsed, toggleSideDrawer, meetingPanelCollapsed, 
       width: '100%',
       zIndex: 9999,
     }}>
-      <Icon
-        className="trigger"
-        type={sideDrawerCollapsed ? "menu-unfold" : "menu-fold"}
-        onClick={toggleSideDrawer}
-      />
       <span style={{ float: "right", lineHeight: "60px" }}>
         <Button
           type="link"
@@ -28,11 +23,6 @@ const TopBar = ({ sideDrawerCollapsed, toggleSideDrawer, meetingPanelCollapsed, 
         >
           Logout
       </Button>
-        <Icon
-          className="trigger"
-          type={meetingPanelCollapsed ? "menu-fold" : "menu-unfold"}
-          onClick={toggleMeetingPanel}
-        />
       </span>
     </Header >
   );

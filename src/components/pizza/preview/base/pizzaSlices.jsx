@@ -17,8 +17,8 @@ const PizzaSlices = ({ pizza, sliceIndex }) => {
                         false
                     );
                     context.lineWidth = pizza.sliceWidth;
-                    context.lineWidth = 5;
-                    context.strokeStyle = "white";
+                    context.lineWidth = (2 / 100) * pizza.radius;
+                    context.strokeStyle = "#ffffff";
                     context.stroke();
                     return context;
                 });

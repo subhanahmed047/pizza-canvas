@@ -1,32 +1,23 @@
 import * as React from 'react';
 import { Layer, Stage } from 'react-konva';
-import PizzaBase from './PizzaBase';
-import PizzaSauce from './PizzaSauce';
-import Pepperoni from './ingredients/pepperoni';
-import PizzaSlices from './PizzaSlices.jsx';
-import Fetta from './ingredients/fetta';
-import ItalianSausages from './ingredients/italianSausages';
-import Olive from './ingredients/olive';
-import Cheese from './ingredients/cheese';
+import { PizzaBase, PizzaSauce, PizzaSlices } from './base';
+import { Pepperoni, Fetta, Olives, Cheese, ItalianSausages } from './ingredients/';
 
 class PizzaPreview extends React.Component {
     constructor(props) {
         super(props);
 
         this.container = React.createRef();
-        const slices = 8;
-
         this.state = {
             stageWidth: 0,
             stageHeight: 0,
-            slices: 8,
             pizza: {
                 x: 0,
                 y: 0,
                 radius: 0,
-                slices: slices,
-                sliceWidth: 360 / slices,
-                pieAngle: (2 * Math.PI) / slices
+                slices: this.props.selectedPizza.noOfSlices,
+                sliceWidth: 360 / this.props.selectedPizza.noOfSlices,
+                pieAngle: (2 * Math.PI) / this.props.selectedPizza.noOfSlices
             },
             container: React.createRef(),
         };
@@ -63,61 +54,21 @@ class PizzaPreview extends React.Component {
         }))
     };
 
-    spreadPepperoni = (pizza, distanceFromEdges, piecesPerSpread) => {
-        return Array.from(Array(pizza.slices * 2), (e, i) => {
-            const ang = i * ((Math.PI * 2) / piecesPerSpread);
-            const x =
-                Math.cos(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
-                pizza.x;
-            const y =
-                Math.sin(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
-                pizza.y;
-            return <Pepperoni key={i} x={x} y={y} radius={(10 / 100) * pizza.radius} />;
-        })
-    }
-
-    spreadFetta = (pizza, distanceFromEdges, piecesPerSpread) => {
-        return Array.from(Array(pizza.slices * 2), (e, i) => {
-            const ang = i * ((Math.PI * 2) / piecesPerSpread) + 10;
-            const x =
-                Math.cos(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
-                pizza.x;
-            const y =
-                Math.sin(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
-                pizza.y;
-            return <Fetta key={i} x={x} y={y} size={(7 / 100) * pizza.radius} />;
-        })
-    }
-
-    spreadItalianSausages = (pizza, distanceFromEdges, piecesPerSpread) => {
-        return Array.from(Array(pizza.slices * 2), (e, i) => {
-            const ang = i * ((Math.PI * 2) / piecesPerSpread) + 30;
-            const x =
-                Math.cos(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
-                pizza.x;
-            const y =
-                Math.sin(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
-                pizza.y;
-            return <ItalianSausages key={i} x={x} y={y} radius={(6 / 100) * pizza.radius} />;
-        })
-    }
-
-    spreadOlives = (pizza, distanceFromEdges, piecesPerSpread) => {
-        return Array.from(Array(pizza.slices * 2), (e, i) => {
-            const ang = i * ((Math.PI * 2) / piecesPerSpread) + 80;
-            const x =
-                Math.cos(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
-                pizza.x;
-            const y =
-                Math.sin(ang) * (pizza.radius - (distanceFromEdges / 100) * pizza.radius) +
-                pizza.y;
-            return <Olive key={i} x={x} y={y} radiusX={(2 / 100) * pizza.radius} radiusY={(3 / 100) * pizza.radius} />;
-        })
-    }
-
     render() {
         const { stageWidth, stageHeight, pizza } = this.state;
-        console.log(pizza);
+        const { selectedPizza } = this.props;
+        // const ingredients = selectedPizza.selectedPizzaType.ingredients;
+        const ingredients = this.props.allIngredients.filter(ingredient => this.props.targetKeys.some((key) => ingredient.key === key));
+        console.log(ingredients);
+
+        const ingredientsMap = {
+            "Cheese": Cheese,
+            "Olives": Olives,
+            "Italian Sausages": ItalianSausages,
+            "Pepperoni": Pepperoni,
+            "Fetta": Fetta
+        }
+
         return (
             <div
                 style={{
@@ -129,19 +80,19 @@ class PizzaPreview extends React.Component {
                 }}>
                 <Stage width={stageWidth} height={stageHeight}>
                     <Layer>
-                        <PizzaBase pizza={pizza} />
-                        <PizzaSauce pizza={pizza} />
-                        <Cheese pizza={pizza} />
-                        {this.spreadItalianSausages(pizza, 19, pizza.slices * 2)}
-                        {this.spreadItalianSausages(pizza, 45, pizza.slices)}
-                        {this.spreadItalianSausages(pizza, 75, pizza.slices / 2)}
-                        {this.spreadPepperoni(pizza, 25, pizza.slices * 2)}
-                        {this.spreadPepperoni(pizza, 55, pizza.slices)}
-                        {this.spreadFetta(pizza, 25, pizza.slices * 2)}
-                        {this.spreadFetta(pizza, 55, pizza.slices)}
-                        {this.spreadOlives(pizza, 35, pizza.slices / 5)}
-                        {this.spreadOlives(pizza, 75, pizza.slices / 4)}
-                        <PizzaSlices pizza={pizza} />
+                        <PizzaBase pizza={pizza} spread />
+                        <PizzaSauce pizza={pizza} spread />
+                        {
+                            Object.keys(ingredientsMap).map(key => {
+                                if (ingredients.some(i => i.title === key)) {
+                                    const Ingredient = ingredientsMap[key];
+                                    return <Ingredient key={key} pizza={pizza} spread />
+                                }
+                                return <React.Fragment />;
+                            })
+                        }
+                        <PizzaSlices pizza={pizza} spread />
+
                     </Layer>
                 </Stage>
             </div>

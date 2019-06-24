@@ -1,4 +1,5 @@
-import { observable, action, computed } from "mobx";
+import { action, computed, observable, toJS } from "mobx";
+import Ingredient from "../models/ingredient";
 import PizzaType from '../models/pizza-type';
 
 class PizzaStore {
@@ -10,12 +11,12 @@ class PizzaStore {
               {
                 key: '0',
                 id: '0',
-                title: 'cheese'
+                title: 'Cheese'
               },
               {
                 key: '1',
                 id: '1',
-                title: 'fetta'
+                title: 'Fetta'
               }
           ]
       },
@@ -26,26 +27,41 @@ class PizzaStore {
               {
                 key: '0',
                 id: '0',
-                title: 'cheese'
+                title: 'Cheese'
               },
               {
                 key: '2',
                 id: '2',
-                title: 'italian sausages'
+                title: 'Italian Sausages'
               },
               {
                 key: '3',
                 id: '3',
-                title: 'pepperoni'
+                title: 'Pepperoni'
               }
           ]
       }
   ];
-
+  @observable selectedPizza: PizzaType = this.pizzas[0];
+  
   @action
   addPizza = (pizza: PizzaType) => {
     this.pizzas.push(pizza);
   };
+
+  @action addIngredients(pizza: PizzaType, ingredients: Ingredient[]){
+    this.pizzas.map((p: PizzaType) => {
+      if(p.id === pizza.id){
+        p.ingredients = ingredients;
+        console.log(toJS(p));
+      }
+      return p;
+    });
+  }
+
+  @action updateSelected(pizza: PizzaType){
+    this.selectedPizza = pizza;
+  }
 
   @computed
   get pizzaCount() {

@@ -35,7 +35,7 @@ const appRoutes = [
 const Routes = () => {
   return (
     <Provider pizzaStore={PizzaStore} ingredientsStore={IngredientsStore}>
-      <Router>
+      <Router basename="/">
         {appRoutes.map(route =>
           route.protected ? (
             <ProtectedRoute
